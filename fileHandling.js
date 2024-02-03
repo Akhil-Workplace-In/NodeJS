@@ -1,28 +1,23 @@
 const fs = require('fs');
+const os = require('os');
 
-// //synchronous call (real time)
-// fs.writeFileSync('./test.txt', 'Hello World!');
+console.log(os.cpus().length);
 
-// Asynchronous call
+// console.log('1');
 
-// fs.writeFile('./test.txt', "Hello World", (err) => {});
+// Blocking... 
+// const result = fs.readFileSync("./contacts.txt", "utf-8");
+// console.log(result);
 
-// const result = fs.readFile('./contacts.txt', "utf-8", (err, data) => {
+// fs.readFile('./contacts.txt', "utf-8", (err, data) => {
 //     if(err){
-//         console.log("Error ", err);
+//         console.log("Error", err)
 //     }else{
 //         console.log(data);
 //     }
-   
-// });
+// })
+// console.log(result);
 
-// fs.appendFileSync('./contacts.txt', new Date().getDate().toLocaleString());
-// fs.appendFileSync('./contacts.txt', `${Date.now()} Hey there`);
-
-// fs.cpSync('./contacts.txt', './copy.txt');
-
-// fs.unlinkSync('./copy.txt');
-
-// console.log(fs.statSync('./contacts.txt').isFile());
-
-fs.mkdirSync('my-docss/a/b', {recursive: true});
+// console.log('2');
+// console.log("3");
+// console.log("4");
