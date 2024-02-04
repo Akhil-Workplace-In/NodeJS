@@ -1,0 +1,13 @@
+
+//version
+
+4.18.2
+
+4  // third part -> Major /Breaking Update 
+// 18 second part -> Recommended bub fix (security fix)
+// 2 last part -> minor fixes (Optional)
+
+express = ^4.18.2
+^4.18.2
+
+^ - Install all Recommended and minor Fixes automatically
