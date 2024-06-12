@@ -1,31 +1,31 @@
 const fs = require("fs");
 
 
-//sync... task
-// fs.writeFileSync('./test.txt', 'Hello world'); //blocking task
+sync... task
+fs.writeFileSync('./test.txt', 'Hello world'); //blocking task
 
-// Async... task
-// fs.writeFile('./test.txt', "Hello fdfworld", (err) => { //non blocking task
-//     console.log(err);
-// })
+Async... task
+fs.writeFile('./test.txt', "Hello fdfworld", (err) => { //non blocking task
+    console.log(err);
+})
 
 
-//Sync
-// const result = fs.readFileSync('./contacts.txt', 'utf-8')
-// console.log(result);
+Sync
+const result = fs.readFileSync('./contacts.txt', 'utf-8')
+console.log(result);
 
-// async...
-// fs.readFile('./contacts.txt', 'utf-8',(error, data) => {
-//     console.log(data);
-// })
+async...
+fs.readFile('./contacts.txt', 'utf-8',(error, data) => {
+    console.log(data);
+})
 
-// to append data in file sync..
-// fs.appendFileSync('./test.txt', new Date().getDate().toLocaleString());
+to append data in file sync..
+fs.appendFileSync('./test.txt', new Date().getDate().toLocaleString());
 
-// fs.cpSync()
+fs.cpSync()
 
-// fs.unlinkSync()
+fs.unlinkSync()
 
-// console.log(fs.statSync('./test.txt'));
+console.log(fs.statSync('./test.txt'));
 
-// fs.mkdirSync("my-docs/index.js", {recursive: true}); //for creating new directory recursively
+fs.mkdirSync("my-docs/index.js", {recursive: true}); //for creating new directory recursively
