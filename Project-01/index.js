@@ -16,9 +16,9 @@ app.use((req, res, next) => {
 })
 
 app.use((req, res, next) => {
-    console.log("Hello from middleware 2 ");
+    // console.log("Hello from middleware 2 ");
 
-    return res.end("hey!");
+    // return res.end("hey!");
     next();
 })
 
@@ -92,10 +92,14 @@ app.patch('/api/users/:id', (req, res) =>{
 app.delete('/api/users/:id', (req, res) => {
     // TODO: Delete the user with id
     const id = req.params.id;
-    let result = arr.find((user) => user == user[id]);
-    console.log(result);
-
-    res.json({status: 'pending...'});
+    let index = users.indexOf(users[id-1]);
+    let newUsers = users.splice(index,1);
+    
+    fs.writeFile('./MOCK_DATA.json', JSON.stringify(users), (err) => {
+        res.json({status: 'User Deleted' + users[index]});
+    })
+    
+    
 })
 
 
