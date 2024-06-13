@@ -36,24 +36,33 @@ app.get('/users', (req, res) => {
 // REST API
 
 app.get('/api/users', (req, res) => {
+    res.setHeader('X-myName', 'Akhilesh Yadav'); //Custom header best practices
+    
     res.json({users});
 })
 
 app.get('/api/users/:id', (req, res) => {
     const id = Number(req.params.id);
-    const user = users.find((user) => user.id === id);
+    const user = users.find((user) => user[0].id === id);
     // console.log(user);
+    if(!user) {
+        return res.status(404).json({error: "User not found"});
+    }
     return res.json({user});
 })
 
 app.post('/api/users', (req, res) => {    
     // TODO: Creaet new user
+    
     const body = req.body;
+    if(!body ||!body.first_name || !body.last_name || !body.email || !body.gender || !body.job_title) {
+         return res.status(400).json({msg: "All fields are required"});
+    }
     users.push({id: users.length + 1,...body});
 
     fs.writeFile('./MOCK_DATA.json', JSON.stringify(users), (err) => {
         // console.log("Error while writing file: " + err);
-        res.json({status: 'Your data has been sent', id: users.length});
+        res.status(201).json({status: 'Your data has been sent', id: users.length});
     });
 
     
@@ -94,7 +103,7 @@ app.delete('/api/users/:id', (req, res) => {
     const id = req.params.id;
     let index = users.indexOf(users[id-1]);
     let newUsers = users.splice(index,1);
-    
+        
     fs.writeFile('./MOCK_DATA.json', JSON.stringify(users), (err) => {
         res.json({status: 'User Deleted' + users[index]});
     })
@@ -102,7 +111,9 @@ app.delete('/api/users/:id', (req, res) => {
     
 })
 
-
+app.use((err, req, res, next) => {
+    res.status(500).json({msg: "Sorry, something up with our server"});
+})
 
 
 app.listen(PORT, () => console.log(`Server started at PORT: ${PORT}`));
