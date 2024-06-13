@@ -8,6 +8,22 @@ const PORT = 8000;
 //Middleware
 app.use(express.urlencoded({extended: false}));
 
+app.use((req, res, next) => {
+    fs.appendFile('./log.txt', `${Date.now()}: IP: ${req.ip} ${req.method}: ${req.path}\n`, (err) => {
+        next();
+    });
+    
+})
+
+app.use((req, res, next) => {
+    console.log("Hello from middleware 2 ");
+
+    return res.end("hey!");
+    next();
+})
+
+
+
 app.get('/users', (req, res) => {
     const html = `
     <ul>
@@ -37,7 +53,7 @@ app.post('/api/users', (req, res) => {
 
     fs.writeFile('./MOCK_DATA.json', JSON.stringify(users), (err) => {
         // console.log("Error while writing file: " + err);
-        res.json({status: 'Done', id: users.length});
+        res.json({status: 'Your data has been sent', id: users.length});
     });
 
     
@@ -76,7 +92,8 @@ app.patch('/api/users/:id', (req, res) =>{
 app.delete('/api/users/:id', (req, res) => {
     // TODO: Delete the user with id
     const id = req.params.id;
-    let result = arr.find((n) => n == 3);
+    let result = arr.find((user) => user == user[id]);
+    console.log(result);
 
     res.json({status: 'pending...'});
 })
