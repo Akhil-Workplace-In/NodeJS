@@ -1,12 +1,12 @@
 REST API -> JSON
 
-GET /users -> HTML Document Render
+GET /users -> HTML Document Render -> Done
 
-GET /api/users -> List all users JSON -> Document
+GET /api/users -> List all users JSON -> Document -> Done
 
-GET /api/users/1 - Get the user with ID-1
-GET /api/users/2 - Get the user with ID-2
+GET /api/users/1 - Get the user with ID-1 -> Done
+GET /api/users/2 - Get the user with ID-2 -> Done
 
-POST /api/users -> Create new user
+POST /api/users -> Create new user 
 
 PATCH /api/users/1 -> Edit the user with ID -1
