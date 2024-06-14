@@ -33,3 +33,10 @@
 1718295305177: IP: ::1 GET: /api/users/1005
 1718295378853: IP: ::1 GET: /api/users/1005
 1718295598168: IP: ::1 GET: /api/users/1005
+1718335326599: IP: ::1 POST: /api/users/
+1718336685370: IP: ::1 POST: /api/users/
+1718336756007: IP: ::1 POST: /api/users/
+1718336813496: IP: ::1 POST: /api/users/
+1718336824612: IP: ::1 POST: /api/users/
+1718336927506: IP: ::1 POST: /api/users/
+1718337099653: IP: ::1 POST: /api/users/

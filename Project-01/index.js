@@ -1,9 +1,53 @@
 const express = require("express");
 const users = require("./MOCK_DATA.json");
 const fs = require("fs");
+const mongoose = require("mongoose");
+const { timeStamp } = require("console");
+
 
 const app = express();
 const PORT = 8000;
+
+//Mongodb Connection
+
+mongoose.connect("mongodb://127.0.0.1:27017/Project-db-1")
+.then(() => console.log("Mongodb Connectd"))
+.catch((err) => console.log("Mongo Error: ", err));
+
+
+
+//Schema  //Define the structure
+
+const userSchema = new mongoose.Schema({
+    firstName: {
+        type: String,
+        required: true,
+    },
+    lastName: {
+        type: String, 
+        required: false,
+    }, 
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+
+    },
+    gender: {
+        type: String,
+        required: true
+    },
+    jobTitle: {
+        type: String,
+    }, 
+  },
+  {timestamps: true}
+)
+
+// Create model from schema(structure)
+
+const User = mongoose.model('user', userSchema);
+
 
 //Middleware
 app.use(express.urlencoded({extended: false}));
@@ -51,20 +95,32 @@ app.get('/api/users/:id', (req, res) => {
     return res.json({user});
 })
 
-app.post('/api/users', (req, res) => {    
+app.post('/api/users', async(req, res) => {    
     // TODO: Creaet new user
     
     const body = req.body;
-    if(!body ||!body.first_name || !body.last_name || !body.email || !body.gender || !body.job_title) {
+    if(!body 
+        || !body.first_name 
+        || !body.last_name 
+        || !body.email 
+        || !body.gender 
+        || !body.job_title) {
          return res.status(400).json({msg: "All fields are required"});
     }
-    users.push({id: users.length + 1,...body});
+    
+    const result = await User.create({
+        firstName: body.first_name,
+        lastName: body.last_name,
+        email: body.email,
+        gender: body.gender,
+        jobTitle: body.job_title,
+    })
+    console.log("Data create result: ", result);
 
-    fs.writeFile('./MOCK_DATA.json', JSON.stringify(users), (err) => {
-        // console.log("Error while writing file: " + err);
-        res.status(201).json({status: 'Your data has been sent', id: users.length});
-    });
+    return res.status(201).json({
+        msg: "Success! User Created"
 
+    })
     
     
 })
