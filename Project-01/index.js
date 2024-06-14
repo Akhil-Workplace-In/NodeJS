@@ -87,10 +87,11 @@ app.get('/api/users', async(req, res) => {
     res.json({allDbUsers});
 })
 
-app.get('/api/users/:id', (req, res) => {
-    const id = Number(req.params.id);
-    const user = users.find((user) => user[0].id === id);
-    // console.log(user);
+app.get('/api/users/:id', async(req, res) => {
+    const user = await User.findById(req.params.id)
+    
+    
+    
     if(!user) {
         return res.status(404).json({error: "User not found"});
     }
