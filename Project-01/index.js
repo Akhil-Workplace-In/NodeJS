@@ -88,9 +88,7 @@ app.get('/api/users', async(req, res) => {
 })
 
 app.get('/api/users/:id', async(req, res) => {
-    const user = await User.findById(req.params.id)
-    
-    
+    const user = await User.findById(req.params.id)    
     
     if(!user) {
         return res.status(404).json({error: "User not found"});
@@ -129,43 +127,23 @@ app.post('/api/users', async(req, res) => {
 })
 
 
-app.patch('/api/users/:id', (req, res) =>{
+app.patch('/api/users/:id', async(req, res) =>{
     //TODO: Edit the user with id
-    const body = req.body;
-    const id = Number(req.params.id);
-    
+    await User.findByIdAndUpdate(req.params.id, {lastName: "Changed"});
+   
+    res.status(201).json({
+        msg: "updated"
+    })
 
-    const propertiesOfUserObj = Object.keys(users[id-1]);
-    const propertiesOfBodyObj = Object.keys(body);
-    
-    (propertiesOfUserObj).forEach(elementOfU => { 
-        propertiesOfBodyObj.forEach(elementOfB => {
-        if(elementOfU == elementOfB){
-            // console.log(elementOfU);
-            users[id-1][elementOfU]= body[elementOfB];
-            
-        }
-    });        
-    });
-
-    fs.writeFile('./MOCK_DATA.json', JSON.stringify(users), (err) => {
-        // console.log("Error while writing file: " + err);
-        return res.json({status: 'Updated', id: users.length});
-    });
-
+   
 
     
 })
 
-app.delete('/api/users/:id', (req, res) => {
+app.delete('/api/users/:id', async(req, res) => {
     // TODO: Delete the user with id
-    const id = req.params.id;
-    let index = users.indexOf(users[id-1]);
-    let newUsers = users.splice(index,1);
-        
-    fs.writeFile('./MOCK_DATA.json', JSON.stringify(users), (err) => {
-        res.json({status: 'User Deleted' + users[index]});
-    })
+   await User.findByIdAndDelete(req.params.id)
+   res.json({msg: "Deleted"});
     
     
 })
