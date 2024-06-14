@@ -40,3 +40,8 @@
 1718336824612: IP: ::1 POST: /api/users/
 1718336927506: IP: ::1 POST: /api/users/
 1718337099653: IP: ::1 POST: /api/users/
+1718337723936: IP: ::1 GET: /users
+1718337726475: IP: ::1 GET: /favicon.ico
+1718337839147: IP: ::1 POST: /api/users/
+1718337846296: IP: ::1 GET: /users
+1718337939061: IP: ::1 GET: /api/users/

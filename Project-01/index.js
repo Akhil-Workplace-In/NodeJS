@@ -1,5 +1,5 @@
 const express = require("express");
-const users = require("./MOCK_DATA.json");
+
 const fs = require("fs");
 const mongoose = require("mongoose");
 const { timeStamp } = require("console");
@@ -68,10 +68,11 @@ app.use((req, res, next) => {
 
 
 
-app.get('/users', (req, res) => {
+app.get('/users', async(req, res) => {
+    const allDbUsers = await User.find({});
     const html = `
     <ul>
-        ${users.map((user) => `<li>${user.first_name}</li>`)}
+        ${allDbUsers.map((user) => `<li>${user.firstName} - ${user.email}</li>`)}
     </ul>    
     `;
     res.send(html);
@@ -79,10 +80,11 @@ app.get('/users', (req, res) => {
 
 // REST API
 
-app.get('/api/users', (req, res) => {
+app.get('/api/users', async(req, res) => {
+    const allDbUsers = await User.find({});
     res.setHeader('X-myName', 'Akhilesh Yadav'); //Custom header best practices
     
-    res.json({users});
+    res.json({allDbUsers});
 })
 
 app.get('/api/users/:id', (req, res) => {
